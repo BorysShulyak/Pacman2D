@@ -12,7 +12,13 @@ public class Pacman : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        ListenMovementInputs();
+        UpdateRotation();
+    }
+
+    private void ListenMovementInputs()
+    {
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             this.movement.SetDirection(Vector2.up);
         }
@@ -29,5 +35,11 @@ public class Pacman : MonoBehaviour
         {
             this.movement.SetDirection(Vector2.right);
         }
+    }
+
+    private void UpdateRotation()
+    {
+        float angle = Mathf.Atan2(this.movement.Direction.y, this.movement.Direction.x);
+        this.transform.rotation = Quaternion.AngleAxis(angle * Mathf.Rad2Deg, Vector3.forward);
     }
 }
