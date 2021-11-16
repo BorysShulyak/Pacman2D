@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2358068522059208346}
   - component: {fileID: 2358068522059208347}
   - component: {fileID: 2358068522059208344}
+  - component: {fileID: 7792848827939235355}
   m_Layer: 8
   m_Name: PowerPallete
   m_TagString: Untagged
@@ -110,3 +111,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7792848827939235355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2358068522059208345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87570fa74128420db64a13553f9ed68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points: 50
+  effectDuration: 8

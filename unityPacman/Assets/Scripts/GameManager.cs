@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public Transform pallets;
     public int score { get; private set; }
     public int lives { get; private set; }
+    public int ghostMultiplayer { get; private set; } = 1;
 
     private void Start() {
         StartNewGame();
@@ -40,10 +41,16 @@ public class GameManager : MonoBehaviour
     }
 
     private void ResetHeroesState() {
-        for(int i = 0; i < this.ghosts.Length; i++) {
+        ResetGhostMultiplayer();
+        for (int i = 0; i < this.ghosts.Length; i++) {
             this.ghosts[i].gameObject.SetActive(true);
         }
         this.pacman.gameObject.SetActive(true);
+    }
+
+    private void ResetGhostMultiplayer()
+    {
+        this.ghostMultiplayer = 1;
     }
 
     private void GameOver() {
@@ -54,7 +61,9 @@ public class GameManager : MonoBehaviour
     }
 
     public void EatGhost(Ghost ghost) {
-        SetScore(this.score + ghost.points);
+        int points = ghost.points * this.ghostMultiplayer;
+        SetScore(this.score + points);
+        this.ghostMultiplayer++;
     }
 
     public void EatPacman() {
@@ -66,5 +75,39 @@ public class GameManager : MonoBehaviour
         else {
             GameOver();
         }
+    }
+
+    public void EatPallete(Pallete pallete)
+    {
+        pallete.gameObject.SetActive(false);
+        SetScore(this.score + pallete.points);
+
+        if(!HasRemainingPallets())
+        {
+            this.pacman.gameObject.SetActive(false);
+            Invoke(nameof(StartNewRound), 3.0f);
+        }
+    }
+
+    public void EatPowerPallete(PowerPallete powerPallete)
+    {
+
+        EatPallete(powerPallete);
+        CancelInvoke();
+        Invoke(nameof(ResetGhostMultiplayer), powerPallete.effectDuration);
+
+        // TODO: change ghost state
+    }
+
+    private bool HasRemainingPallets()
+    {
+        foreach (Transform pallet in this.pallets)
+        {
+            if(pallet.gameObject.activeSelf)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
