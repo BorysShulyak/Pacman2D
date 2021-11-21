@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject[] ghosts;
-    public GameObject pacman;
+    public Ghost[] ghosts;
+    public Pacman pacman;
     public Transform pallets;
     public int score { get; private set; }
     public int lives { get; private set; }
@@ -43,9 +43,9 @@ public class GameManager : MonoBehaviour
     private void ResetHeroesState() {
         ResetGhostMultiplayer();
         for (int i = 0; i < this.ghosts.Length; i++) {
-            this.ghosts[i].gameObject.SetActive(true);
+            this.ghosts[i].ResetState();
         }
-        this.pacman.gameObject.SetActive(true);
+        this.pacman.ResetState();
     }
 
     private void ResetGhostMultiplayer()

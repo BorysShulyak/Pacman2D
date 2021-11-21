@@ -16,6 +16,12 @@ public class Pacman : MonoBehaviour
         UpdateRotation();
     }
 
+    public void ResetState()
+    {
+        this.movement.ResetState();
+        this.gameObject.SetActive(true);
+    }
+
     private void ListenMovementInputs()
     {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
